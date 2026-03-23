@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>来店きっかけアンケート</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #FDF8F0; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
+  </style>
+</head>
+<body>
+  <!--
+    ===== アクセス例 =====
+    アンケート（草加駅前店）:
+      https://あなたのサイト/wrapper.html?store=soka
+    
+    ダッシュボード:
+      https://あなたのサイト/wrapper.html?page=dashboard
+  -->
+
+  <iframe id="frame"></iframe>
+
+  <script>
+    var GAS_BASE_URL = 'https://script.google.com/macros/s/AKfycbxpRd8tw7jS7KtcgtHYHWPGK3iarF-yySLc4T56dThOdKp3KXllaUafzD6GtFhU2sN2Jg/exec';
+
+    var params = new URLSearchParams(window.location.search);
+    var page = params.get('page') || '';
+    var store = params.get('store') || '';
+
+    var src = GAS_BASE_URL;
+    var gasParams = [];
+    if (page) gasParams.push('page=' + encodeURIComponent(page));
+    if (store) gasParams.push('store=' + encodeURIComponent(store));
+    if (gasParams.length > 0) src += '?' + gasParams.join('&');
+
+    document.getElementById('frame').src = src;
+  </script>
+</body>
+</html>
